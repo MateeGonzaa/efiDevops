@@ -1,0 +1,22 @@
+name: CD - Deploy con Git Pull
+
+on:
+  push:
+    branches: [ main ] # O la rama principal que uses
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Solo se ejecuta si el job 'test' del pipeline de CI fue exitoso
+    # needs: test # Descomenta esta línea si quieres que dependa del CI
+    steps:
+      
+name: Conectarse al servidor y hacer git pull
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ 137.184.127.11 }} # IP del servidor
+        username: ${{ mateo_gonzalez }} # Usuario del servidor
+        key: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILJlU03cilS/56sUllRPfkwiwVQrx3g+wq9qXA5mQ89c mateo.gonzalez@itecriocuarto.org.ar }} # La llave privada que guardamos
+        script: |
+          cd ~/lemp-sites/nombre_apellido
+          git pull origin main
