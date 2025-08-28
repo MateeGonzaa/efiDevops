@@ -21,6 +21,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}          # clave privada (id_ed25519)
           port: 22
           script: |
-            cd ~/lemp-sites/***   # ajusta la ruta a tu proyecto
+            cd ~/lemp-sites/mateo_gonzalez   # ajusta la ruta a tu proyecto
             git pull origin main
             # podés agregar más comandos si querés (ej: npm install, docker-compose, etc.)
