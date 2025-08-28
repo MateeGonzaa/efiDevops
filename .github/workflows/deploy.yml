@@ -1,26 +1,20 @@
-name: Deploy 
+# .github/workflows/deploy.yml
+name: CD - Deploy con Git Pull
 
 on:
   push:
-    branches:
-      - main   # se ejecuta solo cuando hay push a main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v3
-
-      - name: Deploy en servidor
+      - name: Conectarse al servidor y hacer git pull
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}        # IP o dominio de tu servidor
-          username: ${{ secrets.SSH_USER }}    # usuario del servidor (ej: mateo_gonzalez)
-          key: ${{ secrets.SSH_KEY }}          # clave privada (id_ed25519)
-          port: 22
+          host: ${{ secrets.IP_DEL_SERVIDOR }}
+          username: ${{ secrets.USUARIO_SERVIDOR }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/lemp-sites/mateo_gonzalez   # ajusta la ruta a tu proyecto
+            cd ~/lemp-sites/mateo_gonzalez
             git pull origin main
-            # podés agregar más comandos si querés (ej: npm install, docker-compose, etc.)
